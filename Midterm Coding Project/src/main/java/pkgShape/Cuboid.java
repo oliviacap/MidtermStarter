@@ -7,7 +7,7 @@ import java.util.Comparator;
 // Override the area() method to compute the surface area of the object and implement
 // new method volume().  The perimeter method is invalid in this context.
 // The best way to handle this is to throw an exception called “UnsupportedOperationException”.
-// If perimeter() is called, throw this exception
+// If perimeter() is called, throw this exception 
  
 public class Cuboid extends Rectangle {
 	
@@ -15,9 +15,14 @@ public class Cuboid extends Rectangle {
 
 	public Cuboid(int iLength, int iWidth, int iDepth) {
 		super(iLength, iWidth);
+		if (iDepth<=0) {
+			throw new IllegalArgumentException();
+		}
 		this.iDepth = iDepth;
 		super.setiWidth(iWidth);
 		super.setiLength(iLength);
+		
+
 	}
 
 	public int getiDepth() {
@@ -25,8 +30,6 @@ public class Cuboid extends Rectangle {
 	}
 
 	public void setiDepth(int iDepth) {
-		if (iDepth <= 0)
-			throw new IllegalArgumentException();
 		this.iDepth = iDepth;
 	}
 	
@@ -40,17 +43,18 @@ public class Cuboid extends Rectangle {
 		double iArea = 2*((super.getiLength() * super.getiWidth()) + (super.getiLength() * this.iDepth) + (super.getiWidth() * this.iDepth));
 		return iArea;
 	}
+	
 	@Override
-	public double perimeter() {
-		double iPerimeter = 4 * (super.getiLength() + super.getiWidth() + this.iDepth);
-		return iPerimeter;
+	public double perimeter() throws UnsupportedOperationException{
+		throw new UnsupportedOperationException();
 	}
 	
 	@Override
-	public int compareTo(Object o) {
-		Cuboid c = (Cuboid) o;
-		return (int) (this.area() - c.area());
-	}
+	public int compareTo(Object cuboid) {
+		double compareVolume = ((Cuboid) cuboid).volume();
+		return(int) (this.volume() - compareVolume);
+		}
+	
 	class SortByArea implements Comparator<Cuboid> {
 		public int compare(Cuboid a, Cuboid b) {
 			return (int) (a.volume() - b.volume());

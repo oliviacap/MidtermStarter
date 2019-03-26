@@ -2,18 +2,18 @@ package pkgShape;
 // ensure Width and Length are positive values- if not, throw an IllegalArgumentException.
 // Implement area() and perimeter()...
 // you can figure out the implementation for these methods.
-// Implement the compareTo(object) method to sort rectangles by area in ascending order
+// Implement the compareTo(object) method to sort rectangles by area in ascending order 
 
 public class Rectangle extends Shape {
 
 	private int iLength;
 	private int iWidth;
 	
-	public void rectangle(){
-	}
-
 	public Rectangle(int iLength, int iWidth) {
 		super();
+		if (iLength<=0 || iWidth<=0) {
+			throw new IllegalArgumentException();
+		}
 		this.iLength = iLength;
 		this.iWidth = iWidth;
 	}
@@ -23,8 +23,7 @@ public class Rectangle extends Shape {
 	}
 
 	public void setiWidth(int iWidth) {
-		if (iWidth <= 0)
-			throw new IllegalArgumentException();
+
 		this.iWidth = iWidth;
 	}
 
@@ -33,8 +32,6 @@ public class Rectangle extends Shape {
 	}
 
 	public void setiLength(int iLength) {
-		if (iLength <= 0)
-			throw new IllegalArgumentException();
 		this.iLength = iLength;
 	}
 
@@ -48,8 +45,8 @@ public class Rectangle extends Shape {
 		return iPerimeter;
 	}
 
-	public int compareTo(Object o) {
-		Rectangle r = (Rectangle) o;
-		return (int) (this.area() - r.area());
+	public int compareTo(Object rectangle) {
+	double compareArea = ((Rectangle) rectangle).area();
+	return(int) (this.area() - compareArea);
 	}
 }
